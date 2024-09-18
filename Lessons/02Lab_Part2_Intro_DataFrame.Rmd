@@ -1,8 +1,8 @@
 ---
-title: "Intro to Data Frames in R"
+title: "Lab 2: Intro to Data Frames in R"
 subtitle: "Environmental Data Analytics"
-author: "Luana Lima"
-date: "Fall 2024"
+author: "Mason Ibrahim"
+date: "9/17/2024"
 output: pdf_document
 ---
 

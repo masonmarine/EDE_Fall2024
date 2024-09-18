@@ -1,9 +1,11 @@
 ---
-title: "Lab 2 - Data Structures in R"
+title: "Lab 2: Data Structures in R"
+author: "Mason Ibrahim"
+date: "9/17/2024"
+output: pdf_document
 subtitle: "Environmental Data Analytics"
-author: "John Fay & Luana Lima"
-date: "Fall 2024"
 ---
+
 
 ## Objective
 Discuss and navigate different data types in R
@@ -12,7 +14,7 @@ Discuss and navigate different data types in R
  - Arrays
  - Data frames
 
----
+
 
 ## Data Types in R
 R treats objects differently based on their characteristics. For more information, please see: <https://www.statmethods.net/input/datatypes.html>.
@@ -27,7 +29,7 @@ R treats objects differently based on their characteristics. For more informatio
 
 -   **Data Frames** 2 dimensional structure that is more general than a matrix. Columns can have different modes (e.g., numeric and factor). When we import csv files into the R workspace, they will enter as data frames.
 
----
+
 
 ## Vectors
 ### Creating Vectors
@@ -39,11 +41,13 @@ vector1 <- c(1,2,5.3,6,-2,4) # Vector type: Numeric
 vector1
 class(vector1)
 
-vector2 <- c("one","two","three") # Vector type: 
+vector2 <- c("one","two","three") # Vector type: Character
 vector2
+class(vector2)
 
-vector3 <- c(TRUE,TRUE,TRUE,FALSE,TRUE,FALSE) # Vector type:
+vector3 <- c(TRUE,TRUE,TRUE,FALSE,TRUE,FALSE) # Vector type: Logical
 vector3
+class(vector3)
 ```
 
 ### Vector Operations
@@ -53,25 +57,25 @@ Add comments below to indicate what each operation does.(First answer is provide
 # Returns the 3rd item in the vector
 vector1[3]
 
-#
+# Returns the maximum value in the vector
 max(vector1)
 
-#Create another vector of the values 10 thru 15
+# Create another vector of the values 10 through 15
 vector4 <- c(10:15)
 
-#
+# Combines vector 1 and 4
 c(vector1, vector4)
 
-#
+# Multiplies the values in the respective positions in vectors 1 and 4 with each other
 vector1 * vector4
 
-#
+# Multiplies the values in vector 1 by 10
 vector1 * 10
 
-#
+# Changes vector 2 to uppercase
 toupper(vector2) 
 
-#
+# Produces the opposite results of vector 3
 !vector3
 
 ```
@@ -101,13 +105,13 @@ temps_C <- (temps_F - 32)*5/9
 Complete the comments below:
 ```{r Creating Matrices}
 # Matrices ----
-matrix1 <- matrix(1:20, nrow = 5,ncol = 4) # 
+matrix1 <- matrix(1:20, nrow = 5,ncol = 4) # Produces a matrix of numbers 1-20 with 5 rows and 4 columns
 matrix1
-#matrix1 has __ rows and __ columns
+#matrix1 has 5 rows and 4 columns
 
-matrix2 <- matrix(1:20, nrow = 5, ncol = 4, byrow = TRUE) #
+matrix2 <- matrix(1:20, nrow = 5, ncol = 4, byrow = TRUE) # Same as above, but numbers are ordered by rows instead of columns
 matrix2
-#matrix2 has __ rows and __ columns
+#matrix2 has 5 rows and 4 columns
 
 matrix3 <- matrix(
   data = 1:20, 
@@ -136,7 +140,7 @@ matrix1[c(12, 14)] # Gives the values stored in the 12th and 14th cells in the m
 
 matrix1[c(12:14)] # Gives the values stored in the 12th through 14th cells in the matrix
 
-matrix1[2:4, 1:3] # Gives the values in the 
+matrix1[2:4, 1:3] # Gives the values that are in the rows 2-4 and columns 1-3 of matrix 1
 
 #Create a vector of 6 values
 values = c(1, 26, 24, 68, 3, 44)
@@ -153,17 +157,24 @@ matrix4 <- matrix(
   dimnames = list(
     rnames, 
     cnames)
-  ) # 
+  ) # Creates a matrix with the values found in matrix with 2 rows, 3 columns, organized by row. The rows and columns are labeled with the values created in vectors rnames and cnames
 
-matrix4 #
+matrix4 # Shows matrix 4 in console
 
-matrix4['R2','C1']
+matrix4['R2','C1'] # 68
 ```
 
 ### Exercise 1b: Matrices
 Compute the mean of column "C2" in matrix4. (Should be 14.5)
 ```{r Matrix Exercise}
-matrix4
+# Extract the column "C2" from the matrix
+column_C2 <- matrix4[, "C2"]
+
+# Compute the mean of the column
+mean_C2 <- mean(column_C2)
+
+# Display the result
+mean_C2
 
 ```
 
@@ -187,22 +198,22 @@ list1 <- list(
 ```{r List Operations}
 # List Operations
 
-#
+# Displays names, numbers, matrix, and age
 list1
 
-#
+# Displays number under age
 list1$age
 
-#
+# Displays the headers in the list
 names(list1)
 
-#
+# Displays the first 2 items in the list
 list1[1:2]
 
-#
+# Changes name from Maria to Janelle
 list1$name = "Janelle"
 
-#
+# Changes age from 5.3 to 44
 list1[[4]] = 44
 ```
 
@@ -219,7 +230,7 @@ f <- c(TRUE, TRUE, TRUE, FALSE) # What type of vector? logical
 dataframe1 <- data.frame(d,e,f) 
 
 #Set the column names & View
-names(dataframe1) <- c("ID","Color","Passed"); View(dataframe1) # 
+names(dataframe1) <- c("ID","Color","Passed"); #View(dataframe1) # view data frame in another tab
 
 #Add a new column to the dataframe
 dataframe1$month <- c('Jan','Feb', 'Mar', 'Apr')
