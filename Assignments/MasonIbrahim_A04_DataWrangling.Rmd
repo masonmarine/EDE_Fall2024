@@ -138,21 +138,23 @@ df_air_complete <- df_air_complete %>%
   "West Johnston Co.", "Garinger High School", "Castle Hayne", 
   "Pitt Agri. Center", "Bryson City", "Millbrook School")) %>% 
   group_by(Date, Site.Name, AQS_PARAMETER_DESC, COUNTY) %>%
-  summarise(mean(DAILY_AQI_VALUE))
-  
-  
-  
-
+  summarise(meanAQI = mean(DAILY_AQI_VALUE), 
+            meanLat = mean(SITE_LATITUDE), 
+            meanLong = mean(SITE_LONGITUDE)) %>%
+  mutate(month = month(Date)) %>% 
+  mutate(year = year(Date))
 
 #9
-
+df_air_complete <- df_air_complete %>% 
+  pivot_wider(names_from = AQS_PARAMETER_DESC, values_from = meanAQI)
 
 #10
 
+dim(df_air_complete)
+
 
 #11
-
-
+write.csv(df_air_pm25_2019, row.names = FALSE, file = "~/R/EDE_Fall2024/Data/Processed/EPAair_O3_PM25_NC1819_Processed.csv")
 ```
 
 
@@ -165,15 +167,21 @@ df_air_complete <- df_air_complete %>%
 ```{r questions 12 and 13}
 
 #12
+df_air_summary <- df_air_complete %>% 
+  group_by(Site.Name, month, year) %>% 
+  summarise(meanOzone = mean(Ozone), 
+            meanPM = mean(PM2.5)) %>% 
+  drop_na(meanOzone)
+  
 
 
 #13
-
+dim(df_air_summary)
 
 
 ```
 
 14. Why did we use the function `drop_na` rather than `na.omit`? Hint: replace `drop_na` with `na.omit` in part 12 and observe what happens with the dimensions of the summary date frame.
 
-> Answer: 
+> Answer: It seems that when you use 'na.omit', it drops any rows containing NA. However, since we only wanted to drop rows where the were NAs in the Ozone column, we used 'drop_na' because you can specify the exact column, without dropping rows that contain NAs from the other columns (PM2.5).
 
