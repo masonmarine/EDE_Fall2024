@@ -5,7 +5,7 @@ date: "Fall 2024"
 output: pdf_document
 geometry: margin=2.54cm
 editor_options: 
-  chunk_output_type: console
+  chunk_output_type: inline
 ---
 
 ## OVERVIEW
@@ -71,27 +71,27 @@ Litter <- read.csv(
 
 5.  What are the dimensions of the dataset? 4623 rows and 30 columns
 
-```{Dimensions}
+```{r, Dimensions}
 dim(Neonics) #use dim() for dimensions 
 
 ```
 
 6.  Using the `summary` function on the "Effect" column, determine the most common effects that are studied. Why might these effects specifically be of interest? [Tip: The `sort()` command is useful for listing the values in order of magnitude...]
 
-```{Most Common Effects Studied}
+```{r, Most Common Effects Studied}
 neo_effect <- summary(Neonics$Effect) #create list of values in specifically in the effect 
-column
+#column
 sort(neo_effect, decreasing = TRUE) #sort by decreasing value to make it simple to find  
-the most common effect
+#the most common effect
 ```
 
 > Answer:Population with a count of 1803 and mortality with a count of 1493 were the most common effects studied. These effects would specifically be of intest because it can illustrate the (either intentional or non-intentional) deaths the exposure to neonicotinoids cause.
 
 7.  Using the `summary` function, determine the six most commonly studied species in the dataset (common name). What do these species have in common, and why might they be of interest over other insects? Feel free to do a brief internet search for more information if needed.[TIP: Explore the help on the `summary()` function, in particular the `maxsum` argument...]
 
-```{Mostr Common Species}
+```{r, Most Common Species}
 summary(Neonics$Species.Common.Name, maxsum = 6) #generating a summary with the top six 
-most commonly studied species with maxsum()
+#most commonly studied species with maxsum()
 
 ```
 
@@ -99,7 +99,7 @@ most commonly studied species with maxsum()
 
 8.  Concentrations are always a numeric value. What is the class of `Conc.1..Author.` column in the dataset, and why is it not numeric? [Tip: Viewing the dataframe may be helpful...]
 
-```{Class of `Conc.1..Author.`}
+```{r, Class of `Conc.1..Author.`}
 class(Neonics$Conc.1..Author.) #use class() to find class
 ```
 
@@ -109,14 +109,12 @@ class(Neonics$Conc.1..Author.) #use class() to find class
 
 9.  Using `geom_freqpoly`, generate a plot of the number of studies conducted by publication year.
 
-```{Plot of Studies by Publication Year}
+```{r, Plot of Studies by Publication Year}
 #some studies repeat, just with different species, have to sort out the repeating  
-information
+#information
 
-unique(Neonics$Title) #checking how many unique papers there are to make sure plot is  
-correct
 neo_unique <- distinct(Neonics, Title, Publication.Year, Test.Location) #sort out  
-repeating papers
+#repeating papers
 
 #plot the unique information
 
@@ -127,9 +125,9 @@ ggplot(neo_unique, aes(x = Publication.Year)) +
 
 10. Reproduce the same graph but now add a color aesthetic so that different Test.Location are displayed as different colors.
 
-```{Plot of Studies by Publication Year: Test Locations}
+```{r, Plot of Studies by Publication Year: Test Locations}
 ggplot(neo_unique, aes(x = Publication.Year, color = Test.Location)) + #adding color to 
-aes and setting it to Test.Location
+#aes and setting it to Test.Location
          geom_freqpoly(binwidth = 1)
 ```
 
@@ -141,11 +139,11 @@ Interpret this graph. What are the most common test locations, and do they diffe
 
 [**TIP**: Add `theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))` to the end of your plot command to rotate and align the X-axis labels...]
 
-```{Bar Graph of Endpoint counts}
+```{r, Bar Graph of Endpoint counts}
 ggplot(Neonics, aes(x = Endpoint)) +
   geom_bar()+ #make it a bar graph with geom_bar()
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) #to rotate and align 
-the X-axis labels for ease of visulization
+#the X-axis labels for ease of visulization
 ```
 
 > Answer:NOEL and LOEL
@@ -161,7 +159,7 @@ by authors) from responses of controls (LOEAL/LOEC)
 
 12. Determine the class of collectDate. Is it a date? If not, change to a date and confirm the new class of the variable. Using the `unique` function, determine which dates litter was sampled in August 2018.
 
-```{August 2028 Litter Sample}
+```{r, August 2028 Litter Sample}
 class(Litter$collectDate) #check class
 Litter$collectDate <- ymd(Litter$collectDate) #change to date with lubridate
 class(Litter$collectDate) #check class again
@@ -170,7 +168,7 @@ unique(Litter$collectDate) #unique values in collectDate column
 
 13. Using the `unique` function, determine how many different plots were sampled at Niwot Ridge. How is the information obtained from `unique` different from that obtained from `summary`?
 
-```{PLots sampled at Niwot Ridge}
+```{r, PLots sampled at Niwot Ridge}
 unique(Litter$plotID) #12 levels
 
 summary(Litter$plotID)#compare to summary
@@ -181,7 +179,7 @@ summary(Litter$plotID)#compare to summary
 
 14. Create a bar graph of functionalGroup counts. This shows you what type of litter is collected at the Niwot Ridge sites. Notice that litter types are fairly equally distributed across the Niwot Ridge sites.
 
-```{Bar Graph of Litter Types}
+```{r, Bar Graph of Litter Types}
 ggplot(Litter, aes(x = functionalGroup))+
   geom_bar()
 
@@ -190,7 +188,7 @@ ggplot(Litter, aes(x = functionalGroup))+
 
 15. Using `geom_boxplot` and `geom_violin`, create a boxplot and a violin plot of dryMass by functionalGroup.
 
-```{Boxplot and Violin Plot of Dry Mass of Litter Types}
+```{r, Boxplot and Violin Plot of Dry Mass of Litter Types}
 ggplot(Litter, aes(x = functionalGroup, y = dryMass))+ #use y= to change y axis
   geom_boxplot()
 
