@@ -3,6 +3,8 @@ title: "Assignment 4: Data Wrangling (Fall 2024)"
 author: "Mason Ibrahim"
 output: pdf_document
 geometry: margin=2.54cm
+editor_options: 
+  chunk_output_type: inline
 ---
 
 ## OVERVIEW
@@ -39,10 +41,18 @@ library(here)
 getwd()
 
 #1c 
-df_air_o3_2018 <- read.csv("~/R/EDE_Fall2024/Data/Raw/EPAair_O3_NC2018_raw.csv", stringsAsFactors = TRUE)
-df_air_o3_2019 <- read.csv("~/R/EDE_Fall2024/Data/Raw/EPAair_O3_NC2019_raw.csv", stringsAsFactors = TRUE)
-df_air_pm25_2018 <-read.csv("~/R/EDE_Fall2024/Data/Raw/EPAair_PM25_NC2018_raw.csv", stringsAsFactors = TRUE)
-df_air_pm25_2019 <- read.csv("~/R/EDE_Fall2024/Data/Raw/EPAair_PM25_NC2019_raw.csv", stringsAsFactors = TRUE)
+df_air_o3_2018 <- 
+  read.csv("~/R/EDE_Fall2024/Data/Raw/EPAair_O3_NC2018_raw.csv",
+                           stringsAsFactors = TRUE)
+df_air_o3_2019 <- 
+  read.csv("~/R/EDE_Fall2024/Data/Raw/EPAair_O3_NC2019_raw.csv",
+                           stringsAsFactors = TRUE)
+df_air_pm25_2018 <-
+  read.csv("~/R/EDE_Fall2024/Data/Raw/EPAair_PM25_NC2018_raw.csv",
+                            stringsAsFactors = TRUE)
+df_air_pm25_2019 <- 
+  read.csv("~/R/EDE_Fall2024/Data/Raw/EPAair_PM25_NC2019_raw.csv",
+                             stringsAsFactors = TRUE)
 
 
 
@@ -78,13 +88,17 @@ df_air_pm25_2019$Date <- mdy(df_air_pm25_2019$Date)
 
 #4
 df_air_o3_2018 <- df_air_o3_2018 %>% 
-  select(Date, DAILY_AQI_VALUE, Site.Name, AQS_PARAMETER_DESC, COUNTY, SITE_LATITUDE, SITE_LONGITUDE)
+  select(Date, DAILY_AQI_VALUE, Site.Name, AQS_PARAMETER_DESC, COUNTY,
+         SITE_LATITUDE, SITE_LONGITUDE)
 df_air_o3_2019 <- df_air_o3_2019 %>% 
-  select(Date, DAILY_AQI_VALUE, Site.Name, AQS_PARAMETER_DESC, COUNTY, SITE_LATITUDE, SITE_LONGITUDE)
+  select(Date, DAILY_AQI_VALUE, Site.Name, AQS_PARAMETER_DESC, COUNTY,
+         SITE_LATITUDE, SITE_LONGITUDE)
 df_air_pm25_2018 <- df_air_pm25_2018 %>% 
-  select(Date, DAILY_AQI_VALUE, Site.Name, AQS_PARAMETER_DESC, COUNTY, SITE_LATITUDE, SITE_LONGITUDE)
+  select(Date, DAILY_AQI_VALUE, Site.Name, AQS_PARAMETER_DESC, COUNTY,
+         SITE_LATITUDE, SITE_LONGITUDE)
 df_air_pm25_2019 <- df_air_pm25_2019 %>% 
-  select(Date, DAILY_AQI_VALUE, Site.Name, AQS_PARAMETER_DESC, COUNTY, SITE_LATITUDE, SITE_LONGITUDE)
+  select(Date, DAILY_AQI_VALUE, Site.Name, AQS_PARAMETER_DESC, COUNTY,
+         SITE_LATITUDE, SITE_LONGITUDE)
 
 #5
 df_air_pm25_2018$AQS_PARAMETER_DESC <- "PM2.5"
@@ -92,10 +106,14 @@ df_air_pm25_2019$AQS_PARAMETER_DESC <- "PM2.5"
 
 
 #6
-write.csv(df_air_o3_2018, row.names = FALSE, file = "~/R/EDE_Fall2024/Data/Processed/EPAair_O3_NC2018_processed.csv")
-write.csv(df_air_o3_2019, row.names = FALSE, file = "~/R/EDE_Fall2024/Data/Processed/EPAair_O3_NC2019_processed.csv")
-write.csv(df_air_pm25_2018, row.names = FALSE, file = "~/R/EDE_Fall2024/Data/Processed/EPAair_PM25_NC2018_processed.csv")
-write.csv(df_air_pm25_2019, row.names = FALSE, file = "~/R/EDE_Fall2024/Data/Processed/EPAair_PM25_NC2019_processed.csv")
+write.csv(df_air_o3_2018, row.names = FALSE, 
+          file = "~/R/EDE_Fall2024/Data/Processed/EPAair_O3_NC2018_processed.csv")
+write.csv(df_air_o3_2019, row.names = FALSE, 
+          file = "~/R/EDE_Fall2024/Data/Processed/EPAair_O3_NC2019_processed.csv")
+write.csv(df_air_pm25_2018, row.names = FALSE, 
+          file = "~/R/EDE_Fall2024/Data/Processed/EPAair_PM25_NC2018_processed.csv")
+write.csv(df_air_pm25_2019, row.names = FALSE, 
+          file = "~/R/EDE_Fall2024/Data/Processed/EPAair_PM25_NC2019_processed.csv")
 
 ```
 
@@ -129,14 +147,17 @@ write.csv(df_air_pm25_2019, row.names = FALSE, file = "~/R/EDE_Fall2024/Data/Pro
 
 ```{r questions 7 thru 11}
 #7
-df_air_complete <- rbind(df_air_o3_2018, df_air_o3_2019, df_air_pm25_2018, df_air_pm25_2019)
+df_air_complete <- 
+  rbind(df_air_o3_2018, df_air_o3_2019, df_air_pm25_2018, df_air_pm25_2019)
 
 #8 
 df_air_complete <- df_air_complete %>% 
-  filter(Site.Name %in% c("Linville Falls", "Durham Armory", "Leggett", "Hattie Avenue",  
-  "Clemmons Middle", "Mendenhall School", "Frying Pan Mountain", 
-  "West Johnston Co.", "Garinger High School", "Castle Hayne", 
-  "Pitt Agri. Center", "Bryson City", "Millbrook School")) %>% 
+  filter(Site.Name %in% c("Linville Falls", "Durham Armory", "Leggett",
+                          "Hattie Avenue", "Clemmons Middle",
+                          "Mendenhall School", "Frying Pan Mountain", 
+                          "West Johnston Co.", "Garinger High School",
+                          "Castle Hayne", "Pitt Agri. Center", "Bryson City",
+                          "Millbrook School")) %>% 
   group_by(Date, Site.Name, AQS_PARAMETER_DESC, COUNTY) %>%
   summarise(meanAQI = mean(DAILY_AQI_VALUE), 
             meanLat = mean(SITE_LATITUDE), 
@@ -154,7 +175,8 @@ dim(df_air_complete)
 
 
 #11
-write.csv(df_air_pm25_2019, row.names = FALSE, file = "~/R/EDE_Fall2024/Data/Processed/EPAair_O3_PM25_NC1819_Processed.csv")
+write.csv(df_air_pm25_2019, row.names = FALSE,
+          file = "~/R/EDE_Fall2024/Data/Processed/EPAair_O3_PM25_NC1819_Processed.csv")
 ```
 
 
@@ -173,7 +195,6 @@ df_air_summary <- df_air_complete %>%
             meanPM = mean(PM2.5)) %>% 
   drop_na(meanOzone)
   
-
 
 #13
 dim(df_air_summary)
